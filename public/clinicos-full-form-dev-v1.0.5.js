@@ -370,6 +370,8 @@ buttonImgDiv.style.aspectRatio = "1";
 buttonImgDiv.style.animation = "buttonPulse 10s infinite";
 buttonImgDiv.style.boxShadow = `0 0 0 0 ${themeColor}`;
 buttonImgDiv.style.transform = "scale(1)";
+buttonImgDiv.style.height = "40px";
+buttonImgDiv.style.width = "40px";
 buttonImgDiv.addEventListener("touchend", function () {
   buttonImgDiv.classList.remove("clinicos-flow__hovered");
 });
