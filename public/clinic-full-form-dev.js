@@ -1,3 +1,5 @@
+const randomFormVersion = Math.floor(Math.random() * 7) + 1;
+console.log(randomFormVersion);
 // START OF HELPER FUNCTIONS ///////////////////////////////////////////////////
 const isMobile = window.innerWidth <= 768;
 function getContrastingTextColor(backgroundColor) {
@@ -318,42 +320,6 @@ selectFirstOptionDiv.style.flexDirection = "column";
 selectFirstOptionDiv.style.justifyContent = "center";
 selectFirstOptionDiv.style.alignItems = "center";
 
-const selectFirstOptionChildOne = document.createElement("span");
-if (!selectFirstOptionChildOne)
-  console.error("error creating selectFirstOptionChildOne");
-selectFirstOptionChildOne.textContent = "Visualize your ";
-selectFirstOptionChildOne.style.all = "initial";
-selectFirstOptionChildOne.style.fontFamily =
-  "Urbanist, Times New Roman, Times, serif";
-selectFirstOptionChildOne.style.fontSize = "18px";
-selectFirstOptionChildOne.style.fontWeight = "500";
-selectFirstOptionChildOne.style.cursor = "pointer";
-
-const selectFirstOptionContextProcedureText = document.createElement("span");
-if (!selectFirstOptionContextProcedureText)
-  console.error("error creating selectFirstOptionContextProcedureText");
-selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-selectFirstOptionContextProcedureText.style.all = "initial";
-selectFirstOptionContextProcedureText.style.fontFamily =
-  "Urbanist, Times New Roman, Times, serif";
-selectFirstOptionContextProcedureText.style.fontSize = "18px";
-selectFirstOptionContextProcedureText.style.fontWeight = "700";
-selectFirstOptionContextProcedureText.style.cursor = "pointer";
-
-const selectFirstOption2TextsContainer = document.createElement("div");
-selectFirstOption2TextsContainer.style.all = "initial";
-
-const selectFirstOptionChildTwo = document.createElement("span");
-if (!selectFirstOptionChildTwo)
-  console.error("error creating selectFirstOptionChildTwo");
-selectFirstOptionChildTwo.textContent = "instantly.";
-selectFirstOptionChildTwo.style.all = "initial";
-selectFirstOptionChildTwo.style.fontFamily =
-  "Urbanist, Times New Roman, Times, serif";
-selectFirstOptionChildTwo.style.fontSize = "18px";
-selectFirstOptionChildTwo.style.fontWeight = "500";
-selectFirstOptionChildTwo.style.cursor = "pointer";
-
 const buttonImgDiv = document.createElement("div");
 if (!buttonImgDiv) console.error("error creating buttonImgDiv");
 buttonImgDiv.id = "clinicos-flow__open-modal-btn";
@@ -366,12 +332,12 @@ buttonImgDiv.style.overflow = "visible";
 buttonImgDiv.style.boxShadow = "0 0 0 0 #5A99D4";
 buttonImgDiv.style.borderRadius = "100px";
 buttonImgDiv.style.padding = "20px 10px 10px 20px";
+buttonImgDiv.style.height = "40px";
+buttonImgDiv.style.width = "40px";
 buttonImgDiv.style.aspectRatio = "1";
 buttonImgDiv.style.animation = "buttonPulse 10s infinite";
 buttonImgDiv.style.boxShadow = `0 0 0 0 ${themeColor}`;
 buttonImgDiv.style.transform = "scale(1)";
-buttonImgDiv.style.height = "40px";
-buttonImgDiv.style.width = "40px";
 buttonImgDiv.addEventListener("touchend", function () {
   buttonImgDiv.classList.remove("clinicos-flow__hovered");
 });
@@ -504,18 +470,317 @@ buttonImgDiv.appendChild(buttonImg);
 floatingVideoContainer.appendChild(floatingVideo);
 modalSelectDiv.appendChild(floatingVideoContainer);
 modalSelectDiv.appendChild(selectFirstOptionDiv);
+// END ADDING ELEMENTS TO DOM
 
-selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
-selectFirstOption2TextsContainer.appendChild(
-  selectFirstOptionContextProcedureText,
-);
-selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+// START FORM RANDOMIZATION
+let selectFirstOptionContextProcedureText;
+if (randomFormVersion === 1) {
+  const selectFirstOptionChildOne = document.createElement("span");
+  if (!selectFirstOptionChildOne)
+    console.error("error creating selectFirstOptionChildOne");
+  selectFirstOptionChildOne.textContent = "See how you'll look with a";
+  selectFirstOptionChildOne.style.all = "initial";
+  selectFirstOptionChildOne.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildOne.style.fontSize = "18px";
+  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.cursor = "pointer";
+
+  selectFirstOptionContextProcedureText = document.createElement("span");
+  if (!selectFirstOptionContextProcedureText)
+    console.error("error creating selectFirstOptionContextProcedureText");
+  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+  selectFirstOptionContextProcedureText.style.all = "initial";
+  selectFirstOptionContextProcedureText.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionContextProcedureText.style.fontSize = "18px";
+  selectFirstOptionContextProcedureText.style.fontWeight = "700";
+  selectFirstOptionContextProcedureText.style.cursor = "pointer";
+
+  const selectFirstOption2TextsContainer = document.createElement("div");
+  selectFirstOption2TextsContainer.style.all = "initial";
+
+  const selectFirstOptionChildTwo = document.createElement("span");
+  if (!selectFirstOptionChildTwo)
+    console.error("error creating selectFirstOptionChildTwo");
+  selectFirstOptionChildTwo.textContent = ".";
+  selectFirstOptionChildTwo.style.all = "initial";
+  selectFirstOptionChildTwo.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildTwo.style.fontSize = "18px";
+  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.cursor = "pointer";
+
+  selectFirstOption2TextsContainer.appendChild(
+    selectFirstOptionContextProcedureText,
+  );
+  selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildTwo);
+  selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
+  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+} else if (randomFormVersion === 2) {
+  const selectFirstOptionChildOne = document.createElement("span");
+  if (!selectFirstOptionChildOne)
+    console.error("error creating selectFirstOptionChildOne");
+  selectFirstOptionChildOne.textContent = "See how a ";
+  selectFirstOptionChildOne.style.all = "initial";
+  selectFirstOptionChildOne.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildOne.style.fontSize = "18px";
+  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.cursor = "pointer";
+
+  selectFirstOptionContextProcedureText = document.createElement("span");
+  if (!selectFirstOptionContextProcedureText)
+    console.error("error creating selectFirstOptionContextProcedureText");
+  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+  selectFirstOptionContextProcedureText.style.all = "initial";
+  selectFirstOptionContextProcedureText.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionContextProcedureText.style.fontSize = "18px";
+  selectFirstOptionContextProcedureText.style.fontWeight = "700";
+  selectFirstOptionContextProcedureText.style.cursor = "pointer";
+
+  const selectFirstOption2TextsContainer = document.createElement("div");
+  selectFirstOption2TextsContainer.style.all = "initial";
+
+  const selectFirstOptionChildTwo = document.createElement("span");
+  if (!selectFirstOptionChildTwo)
+    console.error("error creating selectFirstOptionChildTwo");
+  selectFirstOptionChildTwo.textContent = "Would look on you - for free";
+  selectFirstOptionChildTwo.style.all = "initial";
+  selectFirstOptionChildTwo.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildTwo.style.fontSize = "18px";
+  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.cursor = "pointer";
+
+  selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
+  selectFirstOption2TextsContainer.appendChild(
+    selectFirstOptionContextProcedureText,
+  );
+  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+} else if (randomFormVersion === 3) {
+  const selectFirstOptionChildOne = document.createElement("span");
+  if (!selectFirstOptionChildOne)
+    console.error("error creating selectFirstOptionChildOne");
+  selectFirstOptionChildOne.textContent = "Show up prepared. Visualize your";
+  selectFirstOptionChildOne.style.all = "initial";
+  selectFirstOptionChildOne.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildOne.style.fontSize = "18px";
+  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.cursor = "pointer";
+
+  selectFirstOptionContextProcedureText = document.createElement("span");
+  if (!selectFirstOptionContextProcedureText)
+    console.error("error creating selectFirstOptionContextProcedureText");
+  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+  selectFirstOptionContextProcedureText.style.all = "initial";
+  selectFirstOptionContextProcedureText.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionContextProcedureText.style.fontSize = "18px";
+  selectFirstOptionContextProcedureText.style.fontWeight = "700";
+  selectFirstOptionContextProcedureText.style.cursor = "pointer";
+
+  const selectFirstOption2TextsContainer = document.createElement("div");
+  selectFirstOption2TextsContainer.style.all = "initial";
+
+  const selectFirstOptionChildTwo = document.createElement("span");
+  if (!selectFirstOptionChildTwo)
+    console.error("error creating selectFirstOptionChildTwo");
+  selectFirstOptionChildTwo.textContent = ".";
+  selectFirstOptionChildTwo.style.all = "initial";
+  selectFirstOptionChildTwo.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildTwo.style.fontSize = "18px";
+  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.cursor = "pointer";
+
+  selectFirstOption2TextsContainer.appendChild(
+    selectFirstOptionContextProcedureText,
+  );
+  selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildTwo);
+  selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
+  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+} else if (randomFormVersion === 4) {
+  const selectFirstOptionChildOne = document.createElement("span");
+  if (!selectFirstOptionChildOne)
+    console.error("error creating selectFirstOptionChildOne");
+  selectFirstOptionChildOne.textContent = "Simulate your next";
+  selectFirstOptionChildOne.style.all = "initial";
+  selectFirstOptionChildOne.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildOne.style.fontSize = "18px";
+  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.cursor = "pointer";
+
+  selectFirstOptionContextProcedureText = document.createElement("span");
+  if (!selectFirstOptionContextProcedureText)
+    console.error("error creating selectFirstOptionContextProcedureText");
+  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+  selectFirstOptionContextProcedureText.style.all = "initial";
+  selectFirstOptionContextProcedureText.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionContextProcedureText.style.fontSize = "18px";
+  selectFirstOptionContextProcedureText.style.fontWeight = "700";
+  selectFirstOptionContextProcedureText.style.cursor = "pointer";
+
+  const selectFirstOption2TextsContainer = document.createElement("div");
+  selectFirstOption2TextsContainer.style.all = "initial";
+
+  const selectFirstOptionChildTwo = document.createElement("span");
+  if (!selectFirstOptionChildTwo)
+    console.error("error creating selectFirstOptionChildTwo");
+  selectFirstOptionChildTwo.textContent = ".";
+  selectFirstOptionChildTwo.style.all = "initial";
+  selectFirstOptionChildTwo.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildTwo.style.fontSize = "18px";
+  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.cursor = "pointer";
+
+  selectFirstOption2TextsContainer.appendChild(
+    selectFirstOptionContextProcedureText,
+  );
+  selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildTwo);
+  selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
+  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+} else if (randomFormVersion === 5) {
+  const selectFirstOptionChildOne = document.createElement("span");
+  if (!selectFirstOptionChildOne)
+    console.error("error creating selectFirstOptionChildOne");
+  selectFirstOptionChildOne.textContent = "Visualize your ";
+  selectFirstOptionChildOne.style.all = "initial";
+  selectFirstOptionChildOne.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildOne.style.fontSize = "18px";
+  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.cursor = "pointer";
+
+  selectFirstOptionContextProcedureText = document.createElement("span");
+  if (!selectFirstOptionContextProcedureText)
+    console.error("error creating selectFirstOptionContextProcedureText");
+  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+  selectFirstOptionContextProcedureText.style.all = "initial";
+  selectFirstOptionContextProcedureText.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionContextProcedureText.style.fontSize = "18px";
+  selectFirstOptionContextProcedureText.style.fontWeight = "700";
+  selectFirstOptionContextProcedureText.style.cursor = "pointer";
+
+  const selectFirstOption2TextsContainer = document.createElement("div");
+  selectFirstOption2TextsContainer.style.all = "initial";
+
+  const selectFirstOptionChildTwo = document.createElement("span");
+  if (!selectFirstOptionChildTwo)
+    console.error("error creating selectFirstOptionChildTwo");
+  selectFirstOptionChildTwo.textContent = "in 2 minutes.";
+  selectFirstOptionChildTwo.style.all = "initial";
+  selectFirstOptionChildTwo.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildTwo.style.fontSize = "18px";
+  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.cursor = "pointer";
+
+  selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
+  selectFirstOption2TextsContainer.appendChild(
+    selectFirstOptionContextProcedureText,
+  );
+  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+} else if (randomFormVersion === 6) {
+  const selectFirstOptionChildOne = document.createElement("span");
+  if (!selectFirstOptionChildOne)
+    console.error("error creating selectFirstOptionChildOne");
+  selectFirstOptionChildOne.textContent = "Visualize your ";
+  selectFirstOptionChildOne.style.all = "initial";
+  selectFirstOptionChildOne.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildOne.style.fontSize = "18px";
+  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.cursor = "pointer";
+
+  selectFirstOptionContextProcedureText = document.createElement("span");
+  if (!selectFirstOptionContextProcedureText)
+    console.error("error creating selectFirstOptionContextProcedureText");
+  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+  selectFirstOptionContextProcedureText.style.all = "initial";
+  selectFirstOptionContextProcedureText.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionContextProcedureText.style.fontSize = "18px";
+  selectFirstOptionContextProcedureText.style.fontWeight = "700";
+  selectFirstOptionContextProcedureText.style.cursor = "pointer";
+  selectFirstOptionContextProcedureText.style.color = "#4900F4";
+
+  const selectFirstOption2TextsContainer = document.createElement("div");
+  selectFirstOption2TextsContainer.style.all = "initial";
+
+  const selectFirstOptionChildTwo = document.createElement("span");
+  if (!selectFirstOptionChildTwo)
+    console.error("error creating selectFirstOptionChildTwo");
+  selectFirstOptionChildTwo.textContent = "in 2 minutes.";
+  selectFirstOptionChildTwo.style.all = "initial";
+  selectFirstOptionChildTwo.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildTwo.style.fontSize = "18px";
+  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.cursor = "pointer";
+
+  selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
+  selectFirstOption2TextsContainer.appendChild(
+    selectFirstOptionContextProcedureText,
+  );
+  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+} else {
+  const selectFirstOptionChildOne = document.createElement("span");
+  if (!selectFirstOptionChildOne)
+    console.error("error creating selectFirstOptionChildOne");
+  selectFirstOptionChildOne.textContent = "Visualize your ";
+  selectFirstOptionChildOne.style.all = "initial";
+  selectFirstOptionChildOne.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildOne.style.fontSize = "18px";
+  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.cursor = "pointer";
+
+  selectFirstOptionContextProcedureText = document.createElement("span");
+  if (!selectFirstOptionContextProcedureText)
+    console.error("error creating selectFirstOptionContextProcedureText");
+  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+  selectFirstOptionContextProcedureText.style.all = "initial";
+  selectFirstOptionContextProcedureText.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionContextProcedureText.style.fontSize = "18px";
+  selectFirstOptionContextProcedureText.style.fontWeight = "700";
+  selectFirstOptionContextProcedureText.style.cursor = "pointer";
+
+  const selectFirstOption2TextsContainer = document.createElement("div");
+  selectFirstOption2TextsContainer.style.all = "initial";
+
+  const selectFirstOptionChildTwo = document.createElement("span");
+  if (!selectFirstOptionChildTwo)
+    console.error("error creating selectFirstOptionChildTwo");
+  selectFirstOptionChildTwo.textContent = "instantly.";
+  selectFirstOptionChildTwo.style.all = "initial";
+  selectFirstOptionChildTwo.style.fontFamily =
+    "Urbanist, Times New Roman, Times, serif";
+  selectFirstOptionChildTwo.style.fontSize = "18px";
+  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.cursor = "pointer";
+
+  selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
+  selectFirstOption2TextsContainer.appendChild(
+    selectFirstOptionContextProcedureText,
+  );
+  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+}
 
 modalSelectDiv.appendChild(modelSelectOpacityDiv);
-
 iframeWrapperDiv.appendChild(iframeOnboardingTier1);
-// END ADDING ELEMENTS TO DOM
+// END FORM RANDOMIZATION
 
 // START EVENT LISTENERS
 function toggleSelections() {
