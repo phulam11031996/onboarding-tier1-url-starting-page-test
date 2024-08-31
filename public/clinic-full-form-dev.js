@@ -1,7 +1,23 @@
-const randomFormVersion = Math.floor(Math.random() * 7) + 1;
-console.log(randomFormVersion);
 // START OF HELPER FUNCTIONS ///////////////////////////////////////////////////
+const randomFormVersion = Math.floor(Math.random() * 7) + 1;
 const isMobile = window.innerWidth <= 768;
+const getPreviewVideoSource = (contextProcedure) => {
+  if (contextProcedure === "BBL") {
+    return "https://clinic-os.com/flow-assets/video-preview/preview-bbl.mp4";
+  } else if (contextProcedure === "TUMMY_TUCK") {
+    return "https://clinic-os.com/flow-assets/video-preview/preview-tummy-tuck.mp4";
+  } else if (contextProcedure === "BREAST_AUGMENTATION") {
+    return "https://clinic-os.com/flow-assets/video-preview/preview-breast-aug.mp4";
+  } else if (contextProcedure === "BREAST_LIFT") {
+    return "https://clinic-os.com/flow-assets/video-preview/preview-breast-lift.mp4";
+  } else if (contextProcedure === "BREAST_REDUCTION") {
+    return "https://clinic-os.com/flow-assets/video-preview/preview-breast-reduction.mp4";
+  } else if (contextProcedure === "BREAST_LIFT_AND_AUGMENTATION") {
+    return "https://clinic-os.com/flow-assets/video-preview/preview-breast-lift-and-aug.mp4";
+  } else {
+    return "https://clinic-os.com/flow-assets/video-preview/preview-breast-aug.mp4";
+  }
+};
 function getContrastingTextColor(backgroundColor) {
   const hex = backgroundColor.replace("#", "");
 
@@ -48,52 +64,126 @@ if (scriptElement && scriptElement.hasAttribute("textColor")) {
   else textColor = textColorParam;
 }
 
-let position = "right";
-if (scriptElement && scriptElement.hasAttribute("position")) {
-  const positionParam = scriptElement
-    .getAttribute("position")
+let positionMobile = "right";
+if (scriptElement && scriptElement.hasAttribute("positionMobile")) {
+  const positionMobileParam = scriptElement
+    .getAttribute("positionMobile")
     .toLowerCase()
     .trim();
-  if (positionParam === "left") {
-    position = "left";
-  } else if (positionParam === "right") {
-    position = "right";
+  if (positionMobileParam === "left") {
+    positionMobile = "left";
+  } else if (positionMobileParam === "right") {
+    positionMobile = "right";
   } else {
-    console.error("invalid position, defaulting to right");
+    console.error("Invalid positionMobile, defaulting to right");
   }
 }
 
-let horizontalOffset = "20px";
-if (scriptElement && scriptElement.hasAttribute("horizontalOffset")) {
+let positionDesktop = "right";
+if (scriptElement && scriptElement.hasAttribute("positionDesktop")) {
+  const positionDesktopParam = scriptElement
+    .getAttribute("positionDesktop")
+    .toLowerCase()
+    .trim();
+  if (positionDesktopParam === "left") {
+    positionDesktop = "left";
+  } else if (positionDesktopParam === "right") {
+    positionDesktop = "right";
+  } else {
+    console.error("Invalid positionDesktop, defaulting to right");
+  }
+}
+
+let horizontalOffsetDesktop = "20px";
+if (scriptElement && scriptElement.hasAttribute("horizontalOffsetDesktop")) {
   const horizontalOffsetParam = scriptElement
-    .getAttribute("horizontalOffset")
+    .getAttribute("horizontalOffsetDesktop")
     .toLocaleLowerCase()
     .trim();
   const regex = /^\d+px$/;
   if (regex.test(horizontalOffsetParam)) {
-    horizontalOffset = horizontalOffsetParam;
+    horizontalOffsetDesktop = horizontalOffsetParam;
   } else {
-    console.error("invalid horizontalOffset, defaulting to 20px");
+    console.error("invalid horizontalOffsetDesktop, defaulting to 20px");
   }
 }
 
-let verticalOffset = "20px";
-if (scriptElement && scriptElement.hasAttribute("verticalOffset")) {
+let verticalOffsetDesktop = "20px";
+if (scriptElement && scriptElement.hasAttribute("verticalOffsetDesktop")) {
   const verticalOffsetParam = scriptElement
-    .getAttribute("verticalOffset")
+    .getAttribute("verticalOffsetDesktop")
     .toLocaleLowerCase()
     .trim();
   const regex = /^\d+px$/;
   if (regex.test(verticalOffsetParam)) {
     const verticalOffsetInt = parseInt(verticalOffsetParam.slice(0, -2));
     if (verticalOffsetInt > 30) {
-      verticalOffset = "30px";
+      verticalOffsetDesktop = "30px";
       console.error(
-        "verticalOffset can't be greater than 30px, defaulting to 30px",
+        "verticalOffsetDesktop can't be greater than 30px, defaulting to 30px",
       );
-    } else verticalOffset = verticalOffsetParam;
+    } else verticalOffsetDesktop = verticalOffsetParam;
   } else {
-    console.error("invalid verticalOffset, defaulting to 20px");
+    console.error("invalid verticalOffsetDesktop, defaulting to 20px");
+  }
+}
+
+let horizontalOffsetMobile = "20px";
+if (scriptElement && scriptElement.hasAttribute("horizontalOffsetMobile")) {
+  const mobileHorizontalOffsetParam = scriptElement
+    .getAttribute("horizontalOffsetMobile")
+    .toLocaleLowerCase()
+    .trim();
+  const regex = /^\d+px$/;
+  if (regex.test(mobileHorizontalOffsetParam)) {
+    horizontalOffsetMobile = mobileHorizontalOffsetParam;
+  } else {
+    console.error("Invalid horizontalOffsetMobile, defaulting to 20px");
+  }
+}
+
+let verticalOffsetMobile = "20px";
+if (scriptElement && scriptElement.hasAttribute("verticalOffsetMobile")) {
+  const mobileVerticalOffsetParam = scriptElement
+    .getAttribute("verticalOffsetMobile")
+    .toLocaleLowerCase()
+    .trim();
+  const regex = /^\d+px$/;
+  if (regex.test(mobileVerticalOffsetParam)) {
+    verticalOffsetMobile = mobileVerticalOffsetParam;
+  } else {
+    console.error("Invalid verticalOffsetMobile, defaulting to 20px");
+  }
+}
+
+let videoPlayFrequency = 300000;
+if (scriptElement && scriptElement.hasAttribute("videoPlayFrequency")) {
+  const videoPlayFrequencyParam = parseInt(
+    scriptElement.getAttribute("videoPlayFrequency").trim(),
+  );
+
+  if (!isNaN(videoPlayFrequencyParam) && videoPlayFrequencyParam >= 10000) {
+    videoPlayFrequency = videoPlayFrequencyParam;
+  } else {
+    console.error(
+      "Invalid videoPlayFrequency, it must be at least 10 seconds. Using the default value of 300,000ms (5 minutes).",
+    );
+  }
+}
+
+let ctaPosition = "above";
+if (scriptElement && scriptElement.hasAttribute("ctaPosition")) {
+  const ctaPositionParam = scriptElement
+    .getAttribute("ctaPosition")
+    .toLocaleLowerCase()
+    .trim();
+
+  if (ctaPositionParam === "above" || ctaPositionParam === "side") {
+    ctaPosition = ctaPositionParam;
+  } else {
+    console.error(
+      `Invalid ctaPosition: "${ctaPositionParam}". Using the default value "above".`,
+    );
   }
 }
 
@@ -236,19 +326,30 @@ if (!clinicosFlowDiv) console.error("error creating clinicosFlowDiv");
 clinicosFlowDiv.id = "clinicos-flow";
 clinicosFlowDiv.style.all = "initial";
 clinicosFlowDiv.style.display = "flex";
-clinicosFlowDiv.style.flexDirection = "column";
-clinicosFlowDiv.style.justifyContent = "end";
 clinicosFlowDiv.style.gap = "10px";
 clinicosFlowDiv.style.zIndex = "2147483646";
 clinicosFlowDiv.style.position = "fixed";
-if (position === "right") {
-  clinicosFlowDiv.style.alignItems = "flex-end";
-  clinicosFlowDiv.style.right = horizontalOffset;
-  clinicosFlowDiv.style.bottom = verticalOffset;
+if (ctaPosition === "side" && !isMobile) {
+  clinicosFlowDiv.style.flexDirection = "row";
 } else {
-  clinicosFlowDiv.style.alignItems = "flex-start";
-  clinicosFlowDiv.style.left = horizontalOffset;
-  clinicosFlowDiv.style.bottom = verticalOffset;
+  clinicosFlowDiv.style.flexDirection = "column";
+}
+if (isMobile) {
+  clinicosFlowDiv.style.right = horizontalOffsetMobile;
+  clinicosFlowDiv.style.bottom = verticalOffsetMobile;
+  if (positionMobile === "left") {
+    clinicosFlowDiv.style.alignItems = "flex-start";
+  } else {
+    clinicosFlowDiv.style.alignItems = "flex-end";
+  }
+} else {
+  clinicosFlowDiv.style.left = horizontalOffsetDesktop;
+  clinicosFlowDiv.style.bottom = verticalOffsetDesktop;
+  if (positionDesktop === "left") {
+    clinicosFlowDiv.style.alignItems = "flex-start";
+  } else {
+    clinicosFlowDiv.style.alignItems = "flex-end";
+  }
 }
 
 const videoWidth = "300px";
@@ -268,7 +369,7 @@ floatingVideo.type = "video/mp4";
 floatingVideo.controls = false;
 floatingVideo.muted = true;
 floatingVideo.playsInline = true;
-floatingVideo.src = "https://www.clinic-os.com/breast-aug-preview-8.mp4";
+floatingVideo.src = getPreviewVideoSource("BREAST_AUGMENTATION");
 floatingVideo.style.all = "initial";
 floatingVideo.style.display = "none";
 floatingVideo.style.position = "relative";
@@ -338,6 +439,11 @@ buttonImgDiv.style.aspectRatio = "1";
 buttonImgDiv.style.animation = "buttonPulse 10s infinite";
 buttonImgDiv.style.boxShadow = `0 0 0 0 ${themeColor}`;
 buttonImgDiv.style.transform = "scale(1)";
+if (ctaPosition === "above") {
+  buttonImgDiv.style.marginBottom = "auto";
+} else {
+  buttonImgDiv.style.marginTop = "auto";
+}
 buttonImgDiv.addEventListener("touchend", function () {
   buttonImgDiv.classList.remove("clinicos-flow__hovered");
 });
@@ -453,6 +559,7 @@ iframeOnboardingTier1.allow = "camera";
 iframeOnboardingTier1.style.height = "680px";
 iframeOnboardingTier1.style.width = "380px";
 iframeOnboardingTier1.style.position = "relative";
+
 // END IFRAME DESKTOP
 
 // START ADDING ELEMENTS TO DOM
@@ -462,18 +569,36 @@ document.body.appendChild(iframeOnboardingTier1MobileWrapper);
 document.body.appendChild(closeModalButtonMobile);
 
 iframeOnboardingTier1MobileWrapper.appendChild(iframeOnboardingTier1Mobile);
-clinicosFlowDiv.appendChild(iframeWrapperDiv);
-clinicosFlowDiv.appendChild(modalSelectDiv);
-clinicosFlowDiv.appendChild(buttonImgDiv);
+if (ctaPosition === "side" && !isMobile) {
+  clinicosFlowDiv.appendChild(buttonImgDiv);
+  clinicosFlowDiv.appendChild(modalSelectDiv);
+  clinicosFlowDiv.appendChild(iframeWrapperDiv);
+} else {
+  clinicosFlowDiv.appendChild(iframeWrapperDiv);
+  clinicosFlowDiv.appendChild(modalSelectDiv);
+  clinicosFlowDiv.appendChild(buttonImgDiv);
+}
 buttonImgDiv.appendChild(buttonImg);
 
 floatingVideoContainer.appendChild(floatingVideo);
 modalSelectDiv.appendChild(floatingVideoContainer);
 modalSelectDiv.appendChild(selectFirstOptionDiv);
-// END ADDING ELEMENTS TO DOM
 
 // START FORM RANDOMIZATION
-let selectFirstOptionContextProcedureText;
+const selectFirstOptionContextProcedureText = document.createElement("span");
+if (!selectFirstOptionContextProcedureText)
+  console.error("error creating selectFirstOptionContextProcedureText");
+selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+selectFirstOptionContextProcedureText.style.all = "initial";
+selectFirstOptionContextProcedureText.style.fontFamily =
+  "Urbanist, Times New Roman, Times, serif";
+selectFirstOptionContextProcedureText.style.fontSize = "18px";
+selectFirstOptionContextProcedureText.style.fontWeight = "700";
+selectFirstOptionContextProcedureText.style.cursor = "pointer";
+
+const selectFirstOption2TextsContainer = document.createElement("div");
+selectFirstOption2TextsContainer.style.all = "initial";
+
 if (randomFormVersion === 1) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -483,22 +608,8 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildOne.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildOne.style.fontSize = "18px";
-  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.fontWeight = "600";
   selectFirstOptionChildOne.style.cursor = "pointer";
-
-  selectFirstOptionContextProcedureText = document.createElement("span");
-  if (!selectFirstOptionContextProcedureText)
-    console.error("error creating selectFirstOptionContextProcedureText");
-  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  selectFirstOptionContextProcedureText.style.all = "initial";
-  selectFirstOptionContextProcedureText.style.fontFamily =
-    "Urbanist, Times New Roman, Times, serif";
-  selectFirstOptionContextProcedureText.style.fontSize = "18px";
-  selectFirstOptionContextProcedureText.style.fontWeight = "700";
-  selectFirstOptionContextProcedureText.style.cursor = "pointer";
-
-  const selectFirstOption2TextsContainer = document.createElement("div");
-  selectFirstOption2TextsContainer.style.all = "initial";
 
   const selectFirstOptionChildTwo = document.createElement("span");
   if (!selectFirstOptionChildTwo)
@@ -508,7 +619,7 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildTwo.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildTwo.style.fontSize = "18px";
-  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.fontWeight = "600";
   selectFirstOptionChildTwo.style.cursor = "pointer";
 
   selectFirstOption2TextsContainer.appendChild(
@@ -526,22 +637,8 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildOne.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildOne.style.fontSize = "18px";
-  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.fontWeight = "600";
   selectFirstOptionChildOne.style.cursor = "pointer";
-
-  selectFirstOptionContextProcedureText = document.createElement("span");
-  if (!selectFirstOptionContextProcedureText)
-    console.error("error creating selectFirstOptionContextProcedureText");
-  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  selectFirstOptionContextProcedureText.style.all = "initial";
-  selectFirstOptionContextProcedureText.style.fontFamily =
-    "Urbanist, Times New Roman, Times, serif";
-  selectFirstOptionContextProcedureText.style.fontSize = "18px";
-  selectFirstOptionContextProcedureText.style.fontWeight = "700";
-  selectFirstOptionContextProcedureText.style.cursor = "pointer";
-
-  const selectFirstOption2TextsContainer = document.createElement("div");
-  selectFirstOption2TextsContainer.style.all = "initial";
 
   const selectFirstOptionChildTwo = document.createElement("span");
   if (!selectFirstOptionChildTwo)
@@ -551,7 +648,7 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildTwo.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildTwo.style.fontSize = "18px";
-  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.fontWeight = "600";
   selectFirstOptionChildTwo.style.cursor = "pointer";
 
   selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
@@ -569,22 +666,8 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildOne.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildOne.style.fontSize = "18px";
-  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.fontWeight = "600";
   selectFirstOptionChildOne.style.cursor = "pointer";
-
-  selectFirstOptionContextProcedureText = document.createElement("span");
-  if (!selectFirstOptionContextProcedureText)
-    console.error("error creating selectFirstOptionContextProcedureText");
-  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  selectFirstOptionContextProcedureText.style.all = "initial";
-  selectFirstOptionContextProcedureText.style.fontFamily =
-    "Urbanist, Times New Roman, Times, serif";
-  selectFirstOptionContextProcedureText.style.fontSize = "18px";
-  selectFirstOptionContextProcedureText.style.fontWeight = "700";
-  selectFirstOptionContextProcedureText.style.cursor = "pointer";
-
-  const selectFirstOption2TextsContainer = document.createElement("div");
-  selectFirstOption2TextsContainer.style.all = "initial";
 
   const selectFirstOptionChildTwo = document.createElement("span");
   if (!selectFirstOptionChildTwo)
@@ -594,7 +677,7 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildTwo.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildTwo.style.fontSize = "18px";
-  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.fontWeight = "600";
   selectFirstOptionChildTwo.style.cursor = "pointer";
 
   selectFirstOption2TextsContainer.appendChild(
@@ -612,22 +695,8 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildOne.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildOne.style.fontSize = "18px";
-  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.fontWeight = "600";
   selectFirstOptionChildOne.style.cursor = "pointer";
-
-  selectFirstOptionContextProcedureText = document.createElement("span");
-  if (!selectFirstOptionContextProcedureText)
-    console.error("error creating selectFirstOptionContextProcedureText");
-  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  selectFirstOptionContextProcedureText.style.all = "initial";
-  selectFirstOptionContextProcedureText.style.fontFamily =
-    "Urbanist, Times New Roman, Times, serif";
-  selectFirstOptionContextProcedureText.style.fontSize = "18px";
-  selectFirstOptionContextProcedureText.style.fontWeight = "700";
-  selectFirstOptionContextProcedureText.style.cursor = "pointer";
-
-  const selectFirstOption2TextsContainer = document.createElement("div");
-  selectFirstOption2TextsContainer.style.all = "initial";
 
   const selectFirstOptionChildTwo = document.createElement("span");
   if (!selectFirstOptionChildTwo)
@@ -637,7 +706,7 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildTwo.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildTwo.style.fontSize = "18px";
-  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.fontWeight = "600";
   selectFirstOptionChildTwo.style.cursor = "pointer";
 
   selectFirstOption2TextsContainer.appendChild(
@@ -655,22 +724,8 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildOne.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildOne.style.fontSize = "18px";
-  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.fontWeight = "600";
   selectFirstOptionChildOne.style.cursor = "pointer";
-
-  selectFirstOptionContextProcedureText = document.createElement("span");
-  if (!selectFirstOptionContextProcedureText)
-    console.error("error creating selectFirstOptionContextProcedureText");
-  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  selectFirstOptionContextProcedureText.style.all = "initial";
-  selectFirstOptionContextProcedureText.style.fontFamily =
-    "Urbanist, Times New Roman, Times, serif";
-  selectFirstOptionContextProcedureText.style.fontSize = "18px";
-  selectFirstOptionContextProcedureText.style.fontWeight = "700";
-  selectFirstOptionContextProcedureText.style.cursor = "pointer";
-
-  const selectFirstOption2TextsContainer = document.createElement("div");
-  selectFirstOption2TextsContainer.style.all = "initial";
 
   const selectFirstOptionChildTwo = document.createElement("span");
   if (!selectFirstOptionChildTwo)
@@ -680,7 +735,7 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildTwo.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildTwo.style.fontSize = "18px";
-  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.fontWeight = "600";
   selectFirstOptionChildTwo.style.cursor = "pointer";
 
   selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
@@ -698,23 +753,8 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildOne.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildOne.style.fontSize = "18px";
-  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.fontWeight = "600";
   selectFirstOptionChildOne.style.cursor = "pointer";
-
-  selectFirstOptionContextProcedureText = document.createElement("span");
-  if (!selectFirstOptionContextProcedureText)
-    console.error("error creating selectFirstOptionContextProcedureText");
-  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  selectFirstOptionContextProcedureText.style.all = "initial";
-  selectFirstOptionContextProcedureText.style.fontFamily =
-    "Urbanist, Times New Roman, Times, serif";
-  selectFirstOptionContextProcedureText.style.fontSize = "18px";
-  selectFirstOptionContextProcedureText.style.fontWeight = "700";
-  selectFirstOptionContextProcedureText.style.cursor = "pointer";
-  selectFirstOptionContextProcedureText.style.color = "#4900F4";
-
-  const selectFirstOption2TextsContainer = document.createElement("div");
-  selectFirstOption2TextsContainer.style.all = "initial";
 
   const selectFirstOptionChildTwo = document.createElement("span");
   if (!selectFirstOptionChildTwo)
@@ -724,7 +764,7 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildTwo.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildTwo.style.fontSize = "18px";
-  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.fontWeight = "600";
   selectFirstOptionChildTwo.style.cursor = "pointer";
 
   selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
@@ -742,22 +782,8 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildOne.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildOne.style.fontSize = "18px";
-  selectFirstOptionChildOne.style.fontWeight = "500";
+  selectFirstOptionChildOne.style.fontWeight = "600";
   selectFirstOptionChildOne.style.cursor = "pointer";
-
-  selectFirstOptionContextProcedureText = document.createElement("span");
-  if (!selectFirstOptionContextProcedureText)
-    console.error("error creating selectFirstOptionContextProcedureText");
-  selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  selectFirstOptionContextProcedureText.style.all = "initial";
-  selectFirstOptionContextProcedureText.style.fontFamily =
-    "Urbanist, Times New Roman, Times, serif";
-  selectFirstOptionContextProcedureText.style.fontSize = "18px";
-  selectFirstOptionContextProcedureText.style.fontWeight = "700";
-  selectFirstOptionContextProcedureText.style.cursor = "pointer";
-
-  const selectFirstOption2TextsContainer = document.createElement("div");
-  selectFirstOption2TextsContainer.style.all = "initial";
 
   const selectFirstOptionChildTwo = document.createElement("span");
   if (!selectFirstOptionChildTwo)
@@ -767,7 +793,7 @@ if (randomFormVersion === 1) {
   selectFirstOptionChildTwo.style.fontFamily =
     "Urbanist, Times New Roman, Times, serif";
   selectFirstOptionChildTwo.style.fontSize = "18px";
-  selectFirstOptionChildTwo.style.fontWeight = "500";
+  selectFirstOptionChildTwo.style.fontWeight = "600";
   selectFirstOptionChildTwo.style.cursor = "pointer";
 
   selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildOne);
@@ -777,6 +803,10 @@ if (randomFormVersion === 1) {
   selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
   selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 }
+
+// selectFirstOptionDivDefault.appendChild(selectFirstOptionDefaultTextOne);
+// selectFirstOptionDivDefault.appendChild(selectFirstOptionDefaultTextTwo);
+// selectFirstOptionDivDefault.appendChild(selectFirstOptionDefaultTextThree);
 
 modalSelectDiv.appendChild(modelSelectOpacityDiv);
 iframeWrapperDiv.appendChild(iframeOnboardingTier1);
@@ -860,8 +890,8 @@ function handleModalButtonOnClick() {
 document.addEventListener("DOMContentLoaded", function () {
   const video = document.getElementById("clinicos-flow__floating-video");
   const parent = video.parentElement;
-  const initialDelay = 3000;
-  const reappearDelay = 300000;
+  const initialDelay = 4000;
+  const reappearDelay = videoPlayFrequency;
   const transitionDuration = 1500;
 
   function isVideoInViewport() {
@@ -952,6 +982,7 @@ if (formName) {
 // START SENDING URL TO IFRAME
 let formatUrl;
 let contextProcedure;
+let previousContextProcedure;
 setInterval(() => {
   // if form is open, don't send the url
   if (
@@ -1019,7 +1050,6 @@ setInterval(() => {
   } else {
     contextProcedure = null;
   }
-
   const message = {
     message: "Context Procedure Update",
     payload: {
@@ -1027,20 +1057,25 @@ setInterval(() => {
     },
   };
 
-  if (!contextProcedure)
-    selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
-  else {
-    let titleCasedString = contextProcedure
-      .toLowerCase()
-      .split("_")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-    if (titleCasedString === "Bbl") titleCasedString = "BBL";
-
-    selectFirstOptionContextProcedureText.textContent = titleCasedString;
-  }
-
   iframeOnboardingTier1Mobile.contentWindow.postMessage(message, "*");
   iframeOnboardingTier1.contentWindow.postMessage(message, "*");
+
+  if (previousContextProcedure !== contextProcedure) {
+    if (!contextProcedure) {
+      selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+    } else {
+      let titltedContextProcedure = contextProcedure
+        .toLowerCase()
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+      if (titltedContextProcedure === "Bbl") titltedContextProcedure = "BBL";
+
+      selectFirstOptionContextProcedureText.textContent =
+        titltedContextProcedure;
+    }
+  }
+
+  previousContextProcedure = contextProcedure;
 }, 1000);
 // END SENDING URL TO IFRAME
