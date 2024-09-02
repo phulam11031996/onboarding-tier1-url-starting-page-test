@@ -723,8 +723,6 @@ if (randomFormVersion === 1) {
   selectFirstOptionNonDefaultTextContainer.appendChild(
     selectFirstOption2TextsContainer,
   );
-  // selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
-  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
 } else if (randomFormVersion === 2) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -758,8 +756,6 @@ if (randomFormVersion === 1) {
   selectFirstOptionNonDefaultTextContainer.appendChild(
     selectFirstOptionChildTwo,
   );
-  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 } else if (randomFormVersion === 3) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -793,8 +789,6 @@ if (randomFormVersion === 1) {
   selectFirstOptionNonDefaultTextContainer.appendChild(
     selectFirstOption2TextsContainer,
   );
-  // selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
-  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
 } else if (randomFormVersion === 4) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -828,8 +822,6 @@ if (randomFormVersion === 1) {
   selectFirstOptionNonDefaultTextContainer.appendChild(
     selectFirstOption2TextsContainer,
   );
-  // selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
-  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
 } else if (randomFormVersion === 5) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -898,8 +890,6 @@ if (randomFormVersion === 1) {
   selectFirstOptionNonDefaultTextContainer.appendChild(
     selectFirstOptionChildTwo,
   );
-  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 } else {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -933,8 +923,6 @@ if (randomFormVersion === 1) {
   selectFirstOptionNonDefaultTextContainer.appendChild(
     selectFirstOptionChildTwo,
   );
-  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 }
 
 modalSelectDiv.appendChild(modelSelectOpacityDiv);
