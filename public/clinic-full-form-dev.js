@@ -371,7 +371,6 @@ floatingVideo.type = "video/mp4";
 floatingVideo.controls = false;
 floatingVideo.muted = true;
 floatingVideo.playsInline = true;
-floatingVideo.src = getPreviewVideoSource("BREAST_AUGMENTATION");
 floatingVideo.style.all = "initial";
 floatingVideo.style.display = "none";
 floatingVideo.style.position = "relative";
@@ -917,6 +916,7 @@ document.addEventListener("DOMContentLoaded", function () {
     parent.style.transition = `height ${transitionDuration}ms ease-in-out`;
     parent.style.height = "0px";
     if (isVideoInViewport() && video.paused) {
+      video.src = getPreviewVideoSource(contextProcedure);
       video
         .play(0)
         .then(() => {
@@ -930,7 +930,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setTimeout(() => {
     autoplayVideo();
-
     video.addEventListener("ended", () => (parent.style.height = "0px"));
   }, initialDelay);
 
