@@ -422,6 +422,79 @@ selectFirstOptionDiv.style.flexDirection = "column";
 selectFirstOptionDiv.style.justifyContent = "center";
 selectFirstOptionDiv.style.alignItems = "center";
 
+const selectFirstOptionNonDefaultTextContainer = document.createElement("div");
+if (!selectFirstOptionNonDefaultTextContainer)
+  console.error("error creating selectFirstOptionNonDefaultTextContainer");
+selectFirstOptionNonDefaultTextContainer.style.all = "initial";
+selectFirstOptionNonDefaultTextContainer.style.fontFamily =
+  "Urbanist, Times New Roman, Times, serif";
+selectFirstOptionNonDefaultTextContainer.style.zIndex = "1";
+selectFirstOptionNonDefaultTextContainer.style.cursor = "pointer";
+selectFirstOptionNonDefaultTextContainer.style.width = "100%";
+selectFirstOptionNonDefaultTextContainer.style.display = "none";
+selectFirstOptionNonDefaultTextContainer.style.flexDirection = "column";
+selectFirstOptionNonDefaultTextContainer.style.justifyContent = "center";
+selectFirstOptionNonDefaultTextContainer.style.alignItems = "center";
+
+const selectFirstOptionDefaultTextContainer = document.createElement("div");
+if (!selectFirstOptionDefaultTextContainer)
+  console.error("error creating selectFirstOptionDefaultTextContainer");
+selectFirstOptionDefaultTextContainer.style.all = "initial";
+selectFirstOptionDefaultTextContainer.style.fontFamily =
+  "Urbanist, Times New Roman, Times, serif";
+selectFirstOptionDefaultTextContainer.style.zIndex = "1";
+selectFirstOptionDefaultTextContainer.style.cursor = "pointer";
+selectFirstOptionDefaultTextContainer.style.width = "100%";
+selectFirstOptionDefaultTextContainer.style.display = "flex";
+selectFirstOptionDefaultTextContainer.style.flexDirection = "column";
+selectFirstOptionDefaultTextContainer.style.justifyContent = "center";
+selectFirstOptionDefaultTextContainer.style.alignItems = "center";
+
+const selectFirstOptionTextDefaultOne = document.createElement("span");
+if (!selectFirstOptionTextDefaultOne)
+  console.error("error creating selectFirstOptionTextDefaultOne");
+selectFirstOptionTextDefaultOne.textContent = "Considering plastic surgery?";
+selectFirstOptionTextDefaultOne.style.all = "initial";
+selectFirstOptionTextDefaultOne.style.fontFamily =
+  "Urbanist, Times New Roman, Times, serif";
+selectFirstOptionTextDefaultOne.style.fontSize = "18px";
+selectFirstOptionTextDefaultOne.style.fontWeight = "600";
+selectFirstOptionTextDefaultOne.style.marginBottom = "15px";
+selectFirstOptionTextDefaultOne.style.cursor = "pointer";
+
+const selectFirstOptionTextDefaultTwo = document.createElement("span");
+if (!selectFirstOptionTextDefaultTwo)
+  console.error("error creating selectFirstOptionTextDefaultTwo");
+selectFirstOptionTextDefaultTwo.textContent = "Visualize your next procedure";
+selectFirstOptionTextDefaultTwo.style.all = "initial";
+selectFirstOptionTextDefaultTwo.style.fontFamily =
+  "Urbanist, Times New Roman, Times, serif";
+selectFirstOptionTextDefaultTwo.style.fontSize = "18px";
+selectFirstOptionTextDefaultTwo.style.fontWeight = "600";
+selectFirstOptionTextDefaultTwo.style.cursor = "pointer";
+
+const selectFirstOptionTextDefaultThree = document.createElement("span");
+if (!selectFirstOptionTextDefaultThree)
+  console.error("error creating selectFirstOptionTextDefaultThree");
+selectFirstOptionTextDefaultThree.textContent = "with our AI.";
+selectFirstOptionTextDefaultThree.style.all = "initial";
+selectFirstOptionTextDefaultThree.style.fontFamily =
+  "Urbanist, Times New Roman, Times, serif";
+selectFirstOptionTextDefaultThree.style.fontSize = "18px";
+selectFirstOptionTextDefaultThree.style.fontWeight = "600";
+selectFirstOptionTextDefaultThree.style.cursor = "pointer";
+
+const selectFirstOptionChildTwo = document.createElement("span");
+if (!selectFirstOptionChildTwo)
+  console.error("error creating selectFirstOptionChildTwo");
+selectFirstOptionChildTwo.textContent = "in 2 minutes.";
+selectFirstOptionChildTwo.style.all = "initial";
+selectFirstOptionChildTwo.style.fontFamily =
+  "Urbanist, Times New Roman, Times, serif";
+selectFirstOptionChildTwo.style.fontSize = "18px";
+selectFirstOptionChildTwo.style.fontWeight = "600";
+selectFirstOptionChildTwo.style.cursor = "pointer";
+
 const buttonImgDiv = document.createElement("div");
 if (!buttonImgDiv) console.error("error creating buttonImgDiv");
 buttonImgDiv.id = "clinicos-flow__open-modal-btn";
@@ -590,6 +663,17 @@ buttonImgDiv.appendChild(buttonImg);
 floatingVideoContainer.appendChild(floatingVideo);
 modalSelectDiv.appendChild(floatingVideoContainer);
 modalSelectDiv.appendChild(selectFirstOptionDiv);
+selectFirstOptionDiv.appendChild(selectFirstOptionDefaultTextContainer);
+selectFirstOptionDiv.appendChild(selectFirstOptionNonDefaultTextContainer);
+selectFirstOptionDefaultTextContainer.appendChild(
+  selectFirstOptionTextDefaultOne,
+);
+selectFirstOptionDefaultTextContainer.appendChild(
+  selectFirstOptionTextDefaultTwo,
+);
+selectFirstOptionDefaultTextContainer.appendChild(
+  selectFirstOptionTextDefaultThree,
+);
 
 // START FORM RANDOMIZATION
 const selectFirstOptionContextProcedureText = document.createElement("span");
@@ -633,8 +717,14 @@ if (randomFormVersion === 1) {
     selectFirstOptionContextProcedureText,
   );
   selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildTwo);
-  selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
-  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOptionChildOne,
+  );
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOption2TextsContainer,
+  );
+  // selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
+  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
 } else if (randomFormVersion === 2) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -662,8 +752,14 @@ if (randomFormVersion === 1) {
   selectFirstOption2TextsContainer.appendChild(
     selectFirstOptionContextProcedureText,
   );
-  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOption2TextsContainer,
+  );
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOptionChildTwo,
+  );
+  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 } else if (randomFormVersion === 3) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -691,8 +787,14 @@ if (randomFormVersion === 1) {
     selectFirstOptionContextProcedureText,
   );
   selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildTwo);
-  selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
-  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOptionChildOne,
+  );
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOption2TextsContainer,
+  );
+  // selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
+  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
 } else if (randomFormVersion === 4) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -720,8 +822,14 @@ if (randomFormVersion === 1) {
     selectFirstOptionContextProcedureText,
   );
   selectFirstOption2TextsContainer.appendChild(selectFirstOptionChildTwo);
-  selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
-  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOptionChildOne,
+  );
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOption2TextsContainer,
+  );
+  // selectFirstOptionDiv.appendChild(selectFirstOptionChildOne);
+  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
 } else if (randomFormVersion === 5) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -749,8 +857,14 @@ if (randomFormVersion === 1) {
   selectFirstOption2TextsContainer.appendChild(
     selectFirstOptionContextProcedureText,
   );
-  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOption2TextsContainer,
+  );
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOptionChildTwo,
+  );
+  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 } else if (randomFormVersion === 6) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -778,8 +892,14 @@ if (randomFormVersion === 1) {
   selectFirstOption2TextsContainer.appendChild(
     selectFirstOptionContextProcedureText,
   );
-  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOption2TextsContainer,
+  );
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOptionChildTwo,
+  );
+  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 } else {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -807,13 +927,15 @@ if (randomFormVersion === 1) {
   selectFirstOption2TextsContainer.appendChild(
     selectFirstOptionContextProcedureText,
   );
-  selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOption2TextsContainer,
+  );
+  selectFirstOptionNonDefaultTextContainer.appendChild(
+    selectFirstOptionChildTwo,
+  );
+  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
+  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 }
-
-// selectFirstOptionDivDefault.appendChild(selectFirstOptionDefaultTextOne);
-// selectFirstOptionDivDefault.appendChild(selectFirstOptionDefaultTextTwo);
-// selectFirstOptionDivDefault.appendChild(selectFirstOptionDefaultTextThree);
 
 modalSelectDiv.appendChild(modelSelectOpacityDiv);
 iframeWrapperDiv.appendChild(iframeOnboardingTier1);
@@ -1069,8 +1191,11 @@ setInterval(() => {
 
   if (previousContextProcedure !== contextProcedure) {
     if (!contextProcedure) {
-      selectFirstOptionContextProcedureText.textContent = "Breast Augmentation";
+      selectFirstOptionDefaultTextContainer.style.display = "flex";
+      selectFirstOptionNonDefaultTextContainer.style.display = "none";
     } else {
+      selectFirstOptionDefaultTextContainer.style.display = "none";
+      selectFirstOptionNonDefaultTextContainer.style.display = "flex";
       let titltedContextProcedure = contextProcedure
         .toLowerCase()
         .split("_")
