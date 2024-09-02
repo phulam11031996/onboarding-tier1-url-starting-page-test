@@ -19,6 +19,7 @@ function App() {
           width: "100svw",
           height: "100svh",
           display: "flex",
+          background: "#000",
         }}
       >
         <nav>

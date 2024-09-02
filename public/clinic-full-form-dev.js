@@ -335,19 +335,21 @@ if (ctaPosition === "side" && !isMobile) {
   clinicosFlowDiv.style.flexDirection = "column";
 }
 if (isMobile) {
-  clinicosFlowDiv.style.right = horizontalOffsetMobile;
   clinicosFlowDiv.style.bottom = verticalOffsetMobile;
   if (positionMobile === "left") {
+    clinicosFlowDiv.style.left = horizontalOffsetMobile;
     clinicosFlowDiv.style.alignItems = "flex-start";
   } else {
+    clinicosFlowDiv.style.right = horizontalOffsetMobile;
     clinicosFlowDiv.style.alignItems = "flex-end";
   }
 } else {
-  clinicosFlowDiv.style.left = horizontalOffsetDesktop;
   clinicosFlowDiv.style.bottom = verticalOffsetDesktop;
   if (positionDesktop === "left") {
+    clinicosFlowDiv.style.left = horizontalOffsetDesktop;
     clinicosFlowDiv.style.alignItems = "flex-start";
   } else {
+    clinicosFlowDiv.style.right = horizontalOffsetDesktop;
     clinicosFlowDiv.style.alignItems = "flex-end";
   }
 }
@@ -570,9 +572,15 @@ document.body.appendChild(closeModalButtonMobile);
 
 iframeOnboardingTier1MobileWrapper.appendChild(iframeOnboardingTier1Mobile);
 if (ctaPosition === "side" && !isMobile) {
-  clinicosFlowDiv.appendChild(buttonImgDiv);
-  clinicosFlowDiv.appendChild(modalSelectDiv);
-  clinicosFlowDiv.appendChild(iframeWrapperDiv);
+  if (positionDesktop === "left") {
+    clinicosFlowDiv.appendChild(buttonImgDiv);
+    clinicosFlowDiv.appendChild(modalSelectDiv);
+    clinicosFlowDiv.appendChild(iframeWrapperDiv);
+  } else {
+    clinicosFlowDiv.appendChild(iframeWrapperDiv);
+    clinicosFlowDiv.appendChild(modalSelectDiv);
+    clinicosFlowDiv.appendChild(buttonImgDiv);
+  }
 } else {
   clinicosFlowDiv.appendChild(iframeWrapperDiv);
   clinicosFlowDiv.appendChild(modalSelectDiv);
