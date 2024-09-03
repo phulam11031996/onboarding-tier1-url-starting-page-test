@@ -156,17 +156,17 @@ if (scriptElement && scriptElement.hasAttribute("verticalOffsetMobile")) {
   }
 }
 
-let videoPlayFrequency = 300000;
+let videoPlayFrequency = 300;
 if (scriptElement && scriptElement.hasAttribute("videoPlayFrequency")) {
   const videoPlayFrequencyParam = parseInt(
     scriptElement.getAttribute("videoPlayFrequency").trim(),
   );
 
-  if (!isNaN(videoPlayFrequencyParam) && videoPlayFrequencyParam >= 10000) {
+  if (!isNaN(videoPlayFrequencyParam) && videoPlayFrequencyParam >= 10) {
     videoPlayFrequency = videoPlayFrequencyParam;
   } else {
     console.error(
-      "Invalid videoPlayFrequency, it must be at least 10 seconds. Using the default value of 300,000ms (5 minutes).",
+      "Invalid videoPlayFrequency, it must be at least 10 seconds. Using the default value of 300s (5 minutes).",
     );
   }
 }
@@ -212,7 +212,7 @@ if (scriptElement && scriptElement.hasAttribute("isCtaOpenByDefaultDesktop")) {
 }
 // END OF PARSE SCRIPT PARAMS //////////////////////////////////////////////////
 // FORM URL ////////////////////////////////////////////////////////////////////
-const onboardingTier1 = `https://develop.d3t73tihpl8ypn.amplifyapp.com/?formName=${formName}&clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(
+const onboardingTier1 = `https://form.clinicos.ai/?formName=${formName}&clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(
   themeColor,
 )}&referrer=${document.referrer}#`;
 // END OF FORM URL /////////////////////////////////////////////////////////////
@@ -1008,7 +1008,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const video = document.getElementById("clinicos-flow__floating-video");
   const parent = video.parentElement;
   const initialDelay = 4000;
-  const reappearDelay = videoPlayFrequency;
+  const reappearDelay = videoPlayFrequency * 1000;
   const transitionDuration = 1500;
 
   function isVideoInViewport() {
