@@ -212,7 +212,7 @@ if (scriptElement && scriptElement.hasAttribute("isCtaOpenByDefaultDesktop")) {
 }
 // END OF PARSE SCRIPT PARAMS //////////////////////////////////////////////////
 // FORM URL ////////////////////////////////////////////////////////////////////
-const onboardingTier1 = `https://form.clinicos.ai/?formName=${formName}&clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(
+const onboardingTier1 = `https://develop.d3t73tihpl8ypn.amplifyapp.com/?formName=${formName}&clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(
   themeColor,
 )}&referrer=${document.referrer}#`;
 // END OF FORM URL /////////////////////////////////////////////////////////////
@@ -408,6 +408,7 @@ modelSelectOpacityDiv.style.height = "100%";
 modelSelectOpacityDiv.style.borderRadius = "15px";
 modelSelectOpacityDiv.style.background = "#F0F0F0";
 modelSelectOpacityDiv.style.opacity = "0.8";
+modelSelectOpacityDiv.style.display = "none";
 
 const selectFirstOptionDiv = document.createElement("div");
 if (!selectFirstOptionDiv) console.error("error creating selectFirstOptionDiv");
@@ -445,7 +446,7 @@ selectFirstOptionDefaultTextContainer.style.fontFamily =
 selectFirstOptionDefaultTextContainer.style.zIndex = "1";
 selectFirstOptionDefaultTextContainer.style.cursor = "pointer";
 selectFirstOptionDefaultTextContainer.style.width = "100%";
-selectFirstOptionDefaultTextContainer.style.display = "flex";
+selectFirstOptionDefaultTextContainer.style.display = "none";
 selectFirstOptionDefaultTextContainer.style.flexDirection = "column";
 selectFirstOptionDefaultTextContainer.style.justifyContent = "center";
 selectFirstOptionDefaultTextContainer.style.alignItems = "center";
@@ -1107,6 +1108,8 @@ setInterval(() => {
     iframeWrapperDiv.style.width !== "0px"
   )
     return;
+
+  modelSelectOpacityDiv.style.display = "flex";
 
   if (iframeWrapperDiv.style.width !== "0px") return;
 
