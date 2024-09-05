@@ -212,7 +212,7 @@ if (scriptElement && scriptElement.hasAttribute("isCtaOpenByDefaultDesktop")) {
 }
 // END OF PARSE SCRIPT PARAMS //////////////////////////////////////////////////
 // FORM URL ////////////////////////////////////////////////////////////////////
-const onboardingTier1 = `https://develop.d3t73tihpl8ypn.amplifyapp.com/?formName=${formName}&clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(
+const onboardingTier1 = `https://form.clinicos.ai/${formName}/?clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(
   themeColor,
 )}&referrer=${document.referrer}#`;
 // END OF FORM URL /////////////////////////////////////////////////////////////
@@ -401,7 +401,6 @@ if (!modelSelectOpacityDiv)
   console.error("error creating modelSelectOpacityDiv");
 modelSelectOpacityDiv.id = "clinicos-flow__test-div";
 modelSelectOpacityDiv.style.all = "initial";
-modelSelectOpacityDiv.style.display = "flex";
 modelSelectOpacityDiv.style.position = "absolute";
 modelSelectOpacityDiv.style.width = "100%";
 modelSelectOpacityDiv.style.height = "100%";
@@ -1109,8 +1108,6 @@ setInterval(() => {
   )
     return;
 
-  modelSelectOpacityDiv.style.display = "flex";
-
   if (iframeWrapperDiv.style.width !== "0px") return;
 
   if (window.location.href === formatUrl) return;
@@ -1179,6 +1176,7 @@ setInterval(() => {
 
   iframeOnboardingTier1Mobile.contentWindow.postMessage(message, "*");
   iframeOnboardingTier1.contentWindow.postMessage(message, "*");
+  modelSelectOpacityDiv.style.display = "flex";
 
   if (previousContextProcedure !== contextProcedure) {
     if (!contextProcedure) {
