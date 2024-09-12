@@ -1,5 +1,7 @@
 // START OF HELPER FUNCTIONS ///////////////////////////////////////////////////
+const formVersion = "v2.0.1";
 const randomFormVersion = Math.floor(Math.random() * 7) + 1;
+console.log(randomFormVersion);
 const isMobile = window.innerWidth <= 768;
 const getPreviewVideoSource = (contextProcedure) => {
   if (contextProcedure === "BBL") {
@@ -210,11 +212,33 @@ if (scriptElement && scriptElement.hasAttribute("isCtaOpenByDefaultDesktop")) {
     isCtaOpenByDefaultDesktop = false;
   else console.error("invalid isCtaOpenByDefault, defaulting to true");
 }
+
+let isVideoPlayMobile = true;
+if (scriptElement && scriptElement.hasAttribute("isVideoPlayMobile")) {
+  const isVideoPlayMobileParam = scriptElement
+    .getAttribute("isVideoPlayMobile")
+    .toLocaleLowerCase()
+    .trim();
+  if (isVideoPlayMobileParam === "true") isVideoPlayMobile = true;
+  else if (isVideoPlayMobileParam === "false") isVideoPlayMobile = false;
+  else console.error("invalid isVideoPlayMobile, defaulting to true");
+}
+
+let isVideoPlayDesktop = true;
+if (scriptElement && scriptElement.hasAttribute("isVideoPlayDesktop")) {
+  const isVideoPlayDesktopParam = scriptElement
+    .getAttribute("isVideoPlayDesktop")
+    .toLocaleLowerCase()
+    .trim();
+  if (isVideoPlayDesktopParam === "true") isVideoPlayDesktop = true;
+  else if (isVideoPlayDesktopParam === "false") isVideoPlayDesktop = false;
+  else console.error("invalid isVideoPlayDesktop, defaulting to true");
+}
 // END OF PARSE SCRIPT PARAMS //////////////////////////////////////////////////
 // FORM URL ////////////////////////////////////////////////////////////////////
 const onboardingTier1 = `https://form.clinicos.ai/${formName}/?clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(
   themeColor,
-)}&referrer=${document.referrer}#`;
+)}&referrer=${document.referrer}&formVersion=${formVersion}&ctaCopy=${randomFormVersion}&isMobile=${isMobile}#`;
 // END OF FORM URL /////////////////////////////////////////////////////////////
 
 const styleElement = document.createElement("style");
@@ -364,6 +388,33 @@ floatingVideoContainer.style.position = "relative";
 floatingVideoContainer.style.width = videoWidth;
 floatingVideoContainer.style.height = "0px";
 
+const floatingVideoMobile = document.createElement("video");
+if (!floatingVideoMobile) console.error("error creating floatingVideoMobile");
+floatingVideoMobile.id = "clinicos-flow__floating-video";
+floatingVideoMobile.type = "video/mp4";
+floatingVideoMobile.controls = false;
+floatingVideoMobile.muted = true;
+floatingVideoMobile.playsInline = true;
+floatingVideoMobile.src = getPreviewVideoSource("BREAST_AUGMENTATION");
+floatingVideoMobile.style.all = "initial";
+floatingVideoMobile.style.width = "100%";
+floatingVideoMobile.style.height = "100%";
+floatingVideoMobile.style.objectFit = "cover";
+
+const floatingVideoContainerMobile = document.createElement("div");
+if (!floatingVideoContainerMobile)
+  console.error("error creating floatingVideoContainerMobile");
+floatingVideoContainerMobile.id = "clinicos-flow__floating-video-container";
+floatingVideoContainerMobile.style.all = "initial";
+floatingVideoContainerMobile.style.position = "absolute";
+floatingVideoContainerMobile.style.top = "50%";
+floatingVideoContainerMobile.style.left = "50%";
+floatingVideoContainerMobile.style.transform = "translate(-50%, -50%)";
+floatingVideoContainerMobile.style.width = "100%";
+floatingVideoContainerMobile.style.height = "100%";
+floatingVideoContainerMobile.style.opacity = "0";
+floatingVideoContainerMobile.style.transition = "all 1s ease 0s";
+
 const floatingVideo = document.createElement("video");
 if (!floatingVideo) console.error("error creating floatingVideo");
 floatingVideo.id = "clinicos-flow__floating-video";
@@ -503,7 +554,7 @@ buttonImgDiv.draggable = false;
 buttonImgDiv.style.all = "initial";
 buttonImgDiv.style.cursor = "pointer";
 buttonImgDiv.style.backgroundColor = `${themeColor}`;
-buttonImgDiv.style.overflow = "visible";
+buttonImgDiv.style.overflow = "hidden";
 buttonImgDiv.style.boxShadow = "0 0 0 0 #5A99D4";
 buttonImgDiv.style.borderRadius = "100px";
 buttonImgDiv.style.padding = "20px 10px 10px 20px";
@@ -513,6 +564,8 @@ buttonImgDiv.style.aspectRatio = "1";
 buttonImgDiv.style.animation = "buttonPulse 10s infinite";
 buttonImgDiv.style.boxShadow = `0 0 0 0 ${themeColor}`;
 buttonImgDiv.style.transform = "scale(1)";
+buttonImgDiv.style.position = "relative";
+buttonImgDiv.style.transition = "all 1s ease 0s";
 if (ctaPosition === "above") {
   buttonImgDiv.style.marginBottom = "auto";
 } else {
@@ -658,9 +711,12 @@ if (ctaPosition === "side" && !isMobile) {
   clinicosFlowDiv.appendChild(modalSelectDiv);
   clinicosFlowDiv.appendChild(buttonImgDiv);
 }
-buttonImgDiv.appendChild(buttonImg);
-
 floatingVideoContainer.appendChild(floatingVideo);
+floatingVideoContainerMobile.appendChild(floatingVideoMobile);
+
+buttonImgDiv.appendChild(buttonImg);
+buttonImgDiv.appendChild(floatingVideoContainerMobile);
+
 modalSelectDiv.appendChild(floatingVideoContainer);
 modalSelectDiv.appendChild(selectFirstOptionDiv);
 selectFirstOptionDiv.appendChild(selectFirstOptionDefaultTextContainer);
@@ -686,6 +742,8 @@ selectFirstOptionContextProcedureText.style.fontFamily =
 selectFirstOptionContextProcedureText.style.fontSize = "18px";
 selectFirstOptionContextProcedureText.style.fontWeight = "700";
 selectFirstOptionContextProcedureText.style.cursor = "pointer";
+selectFirstOptionContextProcedureText.style.color =
+  randomFormVersion === 6 ? "blue" : "initial";
 
 const selectFirstOption2TextsContainer = document.createElement("div");
 selectFirstOption2TextsContainer.style.all = "initial";
@@ -855,8 +913,6 @@ if (randomFormVersion === 1) {
   selectFirstOptionNonDefaultTextContainer.appendChild(
     selectFirstOptionChildTwo,
   );
-  // selectFirstOptionDiv.appendChild(selectFirstOption2TextsContainer);
-  // selectFirstOptionDiv.appendChild(selectFirstOptionChildTwo);
 } else if (randomFormVersion === 6) {
   const selectFirstOptionChildOne = document.createElement("span");
   if (!selectFirstOptionChildOne)
@@ -1005,45 +1061,52 @@ function handleModalButtonOnClick() {
 
 // START AUTOPLAY VIDEO
 document.addEventListener("DOMContentLoaded", function () {
-  const video = document.getElementById("clinicos-flow__floating-video");
-  const parent = video.parentElement;
+  const videoDesktop = floatingVideo;
+  const videoMobile = floatingVideoMobile;
+  const parent = videoDesktop.parentElement;
   const initialDelay = 4000;
   const reappearDelay = videoPlayFrequency * 1000;
   const transitionDuration = 1500;
 
-  function isVideoInViewport() {
-    const rect = video.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
-
   function autoplayVideo() {
-    parent.style.transition = `height ${transitionDuration}ms ease-in-out`;
-    parent.style.height = "0px";
-    if (isVideoInViewport() && video.paused) {
-      video.src = getPreviewVideoSource(contextProcedure);
-      video
-        .play(0)
-        .then(() => {
-          video.style.display = "block";
-          parent.style.height = videoWidth;
-          video.style.clipPath = "inset(0 0 0 0)";
-        })
-        .catch((error) => console.error("Error playing video:", error));
+    if (isMobile && isVideoPlayMobile) {
+      floatingVideoContainerMobile.style.opacity = "1";
+      buttonImgDiv.style.scale = "1.2";
+      if (videoMobile.paused) {
+        videoMobile.src = getPreviewVideoSource(contextProcedure);
+        videoMobile
+          .play(0)
+          .then(() => {})
+          .catch((error) => console.error("Error playing video:", error));
+      }
+    }
+
+    if (!isMobile && isVideoPlayDesktop) {
+      parent.style.transition = `height ${transitionDuration}ms ease-in-out`;
+      parent.style.height = "0px";
+      if (videoDesktop.paused) {
+        videoDesktop.src = getPreviewVideoSource(contextProcedure);
+        videoDesktop
+          .play(0)
+          .then(() => {
+            videoDesktop.style.clipPath = "inset(0 0 0 0)";
+            videoDesktop.style.display = "block";
+            parent.style.height = videoWidth;
+          })
+          .catch((error) => console.error("Error playing video:", error));
+      }
     }
   }
 
   setTimeout(() => {
     autoplayVideo();
-    video.addEventListener("ended", () => (parent.style.height = "0px"));
+    videoDesktop.addEventListener("ended", () => (parent.style.height = "0px"));
+    videoMobile.addEventListener("ended", () => {
+      floatingVideoContainerMobile.style.opacity = "0";
+      buttonImgDiv.style.scale = "1";
+    });
+    setInterval(autoplayVideo, reappearDelay + transitionDuration);
   }, initialDelay);
-
-  setInterval(autoplayVideo, reappearDelay + transitionDuration);
 });
 // END AUTOPLAY VIDEO
 
