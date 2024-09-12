@@ -1070,25 +1070,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function autoplayVideo() {
     if (isMobile && isVideoPlayMobile) {
-      floatingVideoContainerMobile.style.opacity = "1";
-      buttonImgDiv.style.scale = "1.2";
       if (videoMobile.paused) {
         videoMobile.src = getPreviewVideoSource(contextProcedure);
         videoMobile
           .play(0)
-          .then(() => {})
+          .then(() => {
+            floatingVideoContainerMobile.style.opacity = "1";
+            buttonImgDiv.style.scale = "1.2";
+          })
           .catch((error) => console.error("Error playing video:", error));
       }
     }
 
     if (!isMobile && isVideoPlayDesktop) {
-      parent.style.transition = `height ${transitionDuration}ms ease-in-out`;
-      parent.style.height = "0px";
       if (videoDesktop.paused) {
         videoDesktop.src = getPreviewVideoSource(contextProcedure);
         videoDesktop
           .play(0)
           .then(() => {
+            parent.style.transition = `height ${transitionDuration}ms ease-in-out`;
+            parent.style.height = "0px";
             videoDesktop.style.clipPath = "inset(0 0 0 0)";
             videoDesktop.style.display = "block";
             parent.style.height = videoWidth;
