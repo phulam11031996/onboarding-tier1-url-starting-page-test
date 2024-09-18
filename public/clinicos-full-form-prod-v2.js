@@ -84,7 +84,7 @@ fetchWidgetSetting(widgetSettingUrl)
   })
   .finally(() => {
     // FORM URL ////////////////////////////////////////////////////////////////////
-    const onboardingTier1 = `http://localhost:3000/${formName}/?clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(themeColor)}&referrer=${document.referrer}&formVersion=${formVersion}&ctaCopy=${randomFormVersion}&isMobile=${isMobile}#`;
+    const onboardingTier1 = `https://form.clinicos.ai/${formName}/?clinicSdkKey=${clinicSdkKey}&themeColor=${encodeURIComponent(themeColor)}&referrer=${document.referrer}&formVersion=${formVersion}&ctaCopy=${randomFormVersion}&isMobile=${isMobile}#`;
     // END OF FORM URL /////////////////////////////////////////////////////////////
 
     const styleElement = document.createElement("style");
