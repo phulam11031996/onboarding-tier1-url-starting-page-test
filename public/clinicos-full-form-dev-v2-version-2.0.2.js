@@ -213,6 +213,7 @@ fetchWidgetSetting(widgetSettingUrl)
     modalSelectDiv.style.justifyContent = "center";
     modalSelectDiv.style.alignItems = "center";
     modalSelectDiv.style.padding = "12px";
+    modalSelectDiv.style.width = "310px";
     if (isMobile) {
       if (isCtaOpenByDefaultMobile === "true")
         modalSelectDiv.style.display = "flex";
@@ -243,7 +244,6 @@ fetchWidgetSetting(widgetSettingUrl)
       "Urbanist, Times New Roman, Times, serif";
     selectFirstOptionDiv.style.zIndex = "1";
     selectFirstOptionDiv.style.cursor = "pointer";
-    selectFirstOptionDiv.style.minWidth = "290px";
     selectFirstOptionDiv.style.display = "flex";
     selectFirstOptionDiv.style.flexDirection = "column";
     selectFirstOptionDiv.style.justifyContent = "center";
@@ -252,6 +252,8 @@ fetchWidgetSetting(widgetSettingUrl)
     selectFirstOptionDiv.style.padding = "12px 20px";
     selectFirstOptionDiv.style.boxSizing = "border-box";
     selectFirstOptionDiv.style.fontWeight = "600";
+    selectFirstOptionDiv.style.width = "100%";
+    selectFirstOptionDiv.style.textAlign = "center";
     selectFirstOptionDiv.style.background = `${themeColor}`;
     selectFirstOptionDiv.style.color = `${textColor}`;
     selectFirstOptionDiv.textContent = "Simulate your next procedure";
